@@ -6,13 +6,14 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 19:54:47 by ntordjma          #+#    #+#             */
-/*   Updated: 2024/11/27 19:08:30 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/02/25 23:26:23 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdlib.h>
+# include "GNL/get_next_line.h"
 
 typedef struct s_list
 {

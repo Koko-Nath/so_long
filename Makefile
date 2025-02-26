@@ -3,43 +3,47 @@
 NAME = so_long
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-SRC = create_window.c
-MLX = mlx/Makefile.gen
-MLXFLAGS = -lbsd -lX11 -lm -lXext -lmlx
-# -Lmlx -lmlx -framework OpenGL -framework AppKit
-OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
-INC = -I ./inc -I ./libft -I ./mlx
-LIB =  -L ./mlx $(MLXFLAGS) #-lmlx -lmlx -lXext -lX11 -lm -lbsd
-# -L ./libft -libft
+FILES = create_window.c \
+		read_map.c \
+		# moves.c \
+		textures.c
+SRC = 	src/$(FILES)
+MLX = ./includes/mlx/Makefile.gen
+LFT = ./includes/libft/libft.a
+MLXFLAGS = -lX11 -lXext -lm -lz
+OBJ = $(FILES:%.c=$(OBJDIR)%.o)
+OBJDIR = obj_dir/
+INC = -I ./includes/libft -I ./includes/libft/GNL -I ./includes/mlx -I .
+LIB = ./includes/mlx/libmlx_Linux.a $(MLXFLAGS)
 
-all: $(MLX) $(LFT) obj $(NAME)
+all: $(MLX) $(LFT) $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(MXFLAGS) -o $@ $^ $(LIB)
+$(NAME): $(OBJ) $(LFT)
+	$(CC) $(CFLAGS) $(MLXFLAGS) -o $@ $^ ./includes/libft/libft.a $(LIB)
 
 $(MLX):
 	@echo "[..] | la Minilibx de ses morts compile tkt.."
-	@make -s -C minilibx
+	@make -s -C includes/mlx
 	@echo "[ OK ] | C'est tout bon frero "
 
 $(LFT):
 	@echo "[ .. ] | la libft mtn.."
-	@make -s -C libft
+	@make -C includes/libft
 	@echo "[ OK ] | C'est encore tout bon frero "
 
-obj: 
-	@mkdir -p obj
-
-obj/%.o: src/%.c
+$(OBJDIR)%.o: src/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
+$(OBJDIR):
+	@mkdir -p $(OBJDIR)
+
 clean:
-	@make -s $@ -C libft
-	@rm -rf $(OBJ) obj
+	@make -s $@ -C includes/libft
+	@rm -rf $(OBJDIR)
 	@echo "objects removed. c'est ciao"
 
 fclean: clean
-	@make -s $@ -C libft
+	@make -s $@ -C includes/libft
 	@rm -rf $(NAME)
 	@echo "binary file removed. c'est ciao"
 

@@ -6,22 +6,28 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:01:43 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/02/22 14:41:02 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/02/26 01:53:40 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx/mlx.h"
-#include "mlx/mlx_int.h"
-#include <stdlib.h>
 #include "so_long.h"
 
-// void	test(void *mlx_ptr)
-// {
-// 	t_data img;
+void	test_again(t_test *img, int x, int y, int color)
+{
+	char	*dst;
 
-// 	img.img = mlx_new_image(mlx_ptr, 1920, 1080);
-// 	img.addr = mlx_get_data_addr(img.img, &img.bits_pet_pixel, &img.line_length, &img.endian);
-// }
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	test(void *mlx_ptr, void *win_ptr)
+{
+	t_test img;
+	img.img = mlx_new_image(mlx_ptr, 200, 100);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	test_again(&img, 5, 5, 0x00FF0000);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img.img, 0, 0);
+}
 
 int	on_destroy(t_data *data)
 {
@@ -39,21 +45,30 @@ int	on_keypress(int keysym, t_data *data)
 	return (0);
 }
 
+void	setup_images(t_images img)
+{
+	img.img = NULL;
+	img.img_x = 64;
+	img.img_y = 64;
+}
+
 int main(void)
 {
 	t_data	data;
-	void	*img_ptr;
-
+	char 	**map;
+	
+	map = NULL;
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, 1920, 1080, "feur =)");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
-	img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, "bush.xpm", 10, 10);
-	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img_ptr, 2, 2);
-	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &data);
-	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, &data);
+	test(data.mlx_ptr, data.win_ptr);
+	map = read_map(map);
+	aff_map(map, data);
+	//mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &data);
+	//mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
