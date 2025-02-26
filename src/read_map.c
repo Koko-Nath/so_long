@@ -6,13 +6,13 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 22:24:35 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/02/26 02:25:54 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:47:41 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	**read_map(char **map)
+char	**read_map(t_data data)
 {
 	int fd;
 	int i;
@@ -25,37 +25,37 @@ char	**read_map(char **map)
 	fd = open((const char*) map_path, O_RDONLY);
 	while (get_next_line(fd))
 		count_lines++;
-	map = malloc(sizeof(char*) * count_lines + 1);
+	data.map = malloc(sizeof(char*) * count_lines + 1);
 	close(fd);
 	fd = open((const char*) map_path, O_RDONLY);
 	while(i != count_lines)
 	{
 		//line = get_next_line(fd);
-		map[i++] = get_next_line(fd);
+		data.map[i++] = get_next_line(fd);
 	}
-	return (map);
+	return (data.map);
 }
 
-void	aff_map(char **map, t_data data)
+void	aff_map(t_data data)
 {
 	int	x;
 	int	y;
 	
 	y = 0;
-	while (map[y])
+	while (data.map[y])
 	{
 		x = 0;
-		while(map[y][x])
+		while(data.map[y][x])
 		{
-			if (map[y][x] == '0')
+			if (data.map[y][x] == '0')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.sprites.floor.img, (x * 64), (y * 64));
-			if (map[y][x] == '1')
+			if (data.map[y][x] == '1')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.sprites.bush.img, (x * 64), (y * 64));		
-			if (map[y][x] == 'C')
+			if (data.map[y][x] == 'C')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.sprites.milk.img, (x * 64), (y * 64));
-			if (map[y][x] == 'E')
+			if (data.map[y][x] == 'E')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.sprites.exit.img, (x * 64), (y * 64));
-			if (map[y][x] == 'P')
+			if (data.map[y][x] == 'P')
 				mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.sprites.player.img, (x * 64), (y * 64));
 			x++;
 		}

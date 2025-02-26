@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/02/26 02:28:47 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/02/26 15:46:22 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define player_path "assets/player.xpm"
 # define exit_path "assets/exit.xpm"
 
-# define map_path "./map.txt"
+# define map_path "./sus.txt"
 
 # include "includes/mlx/mlx.h"
 # include "includes/mlx/mlx_int.h"
@@ -45,7 +45,7 @@ typedef struct s_sprites{
 typedef struct s_data {
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
-	void		*textures[5];
+	char		**map; // Map array
 	t_sprites	sprites; // MLX image pointers (on the stack)
 }	t_data;
 
@@ -60,8 +60,8 @@ typedef struct	s_test {
 // FUNCTIONS 
 
 void	*load_textures(t_data data);
-char	**read_map(char **map);
-void	aff_map(char **map, t_data data);
+char	**read_map(t_data data);
+void	aff_map(t_data data);
 void	setup_images(t_sprites *img, t_data *data);
 
 
