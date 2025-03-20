@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 02:54:06 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/02/26 15:29:11 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/20 18:27:20 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,55 @@ int	on_destroy(t_data *data)
 	return (0);
 }
 
-int	on_keypress(int keysym, t_data *data)
+int	check_items(t_data *data, int x, int y)
 {
-	data->sprites.player.img 
+	if (data->map[y][x] == 'C')
+		data->nbr_collec--;
 	return (0);
 }
 
-void	move_up(t_data *data)
+int handle_keypress(int keycode, t_data *data)
 {
-	mlx_key_hook(data->win_ptr, on_keypress, data);
+    if (keycode == 119) // W
+		move_player(data, 0, -1);
+    else if (keycode == 115) // S
+		move_player(data, 0, 1);
+    else if (keycode == 97) // A
+		move_player(data, -1, 0);
+    else if (keycode == 100) // D
+		move_player(data, 1, 0);
+    else if (keycode == 65307) // ESC
+        on_destroy(data);
+    return (0);
+}
+
+void move_player(t_data *data, int dx, int dy)
+{
+	get_player_pos(data);
+	ft_printf("%s%d\n", "pos x =", data->sprites.player.img_x);
+	ft_printf("%s%d\n", "pos y =", data->sprites.player.img_y);
+	ft_printf("%s%d\n", "milky milk left =", data->nbr_collec);
+	
+    int new_x = data->sprites.player.img_x + dx;
+    int new_y = data->sprites.player.img_y + dy;
+    
+    if (data->map[new_y][new_x] != '1' && data->map[new_y][new_x] != 'E')
+    {
+		check_items(data, new_x, new_y);
+        data->map[data->sprites.player.img_y][data->sprites.player.img_x] = '0'; // Efface l'ancienne position
+        data->sprites.player.img_x = new_x;
+        data->sprites.player.img_y = new_y;
+        data->map[new_y][new_x] = 'P'; // Place le joueur à la nouvelle position
+        aff_map(*data); // Rafraîchit l'affichage de la carte
+    }
+	else if (data->map[new_y][new_x] == 'E')
+	{
+		if (data->nbr_collec == 0)
+		{
+			ft_printf("You win!\n");
+			on_destroy(data);
+		}
+		else
+			ft_printf("You need to collect all the items first!\n");
+	}
 }

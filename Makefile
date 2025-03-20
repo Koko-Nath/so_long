@@ -5,8 +5,9 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 FILES = create_window.c \
 		read_map.c \
-		# moves.c \
-		textures.c
+		moves.c \
+		check_map.c
+
 SRC = 	src/$(FILES)
 MLX = ./includes/mlx/Makefile.gen
 LFT = ./includes/libft/libft.a

@@ -6,12 +6,14 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/02/26 15:46:22 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:46:44 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+
+// --------------------DEFINES--------------------
 
 # define bush_path "assets/bush.xpm"
 # define milk_path "assets/milk.xpm"
@@ -19,13 +21,15 @@
 # define player_path "assets/player.xpm"
 # define exit_path "assets/exit.xpm"
 
-# define map_path "./sus.txt"
+// --------------------INCLUDES--------------------
 
 # include "includes/mlx/mlx.h"
 # include "includes/mlx/mlx_int.h"
 # include "includes/libft/libft.h"
 # include "includes/libft/GNL/get_next_line.h"
 # include <stdlib.h>
+
+// --------------------STRUCTURES--------------------
 
 typedef struct s_images{
 	void	*img;
@@ -45,24 +49,27 @@ typedef struct s_sprites{
 typedef struct s_data {
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
-	char		**map; // Map array
-	t_sprites	sprites; // MLX image pointers (on the stack)
+	char		**map;
+	char		*map_path;
+	int			nbr_collec; 
+	t_sprites	sprites;
 }	t_data;
 
-typedef struct	s_test {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_test;
-
-// FUNCTIONS 
+// --------------------FUNCTIONS-------------------- 
 
 void	*load_textures(t_data data);
 char	**read_map(t_data data);
 void	aff_map(t_data data);
 void	setup_images(t_sprites *img, t_data *data);
-
+//int		*on_keypress(int keysym, t_data *data);
+int 	handle_keypress(int keycode, t_data *data);
+void 	move_player(t_data *data, int dx, int dy);
+void	get_player_pos(t_data *data);
+void	end_program(t_data data);
+void	count_items(t_data *data);
+int		on_destroy(t_data *data);
+int		check_items(t_data *data, int x, int y);
+void	check_collectible(t_data *data, int x, int y);
+void	check_map(t_data data);
 
 #endif

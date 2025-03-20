@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 22:24:35 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/02/26 15:47:41 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:47:35 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,23 @@ char	**read_map(t_data data)
 	char *line;
 	
 	line = "";
-	i = 0;
 	count_lines = 0;
-	fd = open((const char*) map_path, O_RDONLY);
+	fd = open((const char*) data.map_path, O_RDONLY);
 	while (get_next_line(fd))
 		count_lines++;
 	data.map = malloc(sizeof(char*) * count_lines + 1);
 	close(fd);
-	fd = open((const char*) map_path, O_RDONLY);
+	fd = open((const char*) data.map_path, O_RDONLY);
+	i = 0;
 	while(i != count_lines)
 	{
-		//line = get_next_line(fd);
-		data.map[i++] = get_next_line(fd);
+		line = (get_next_line(fd));
+		data.map[i] = malloc(sizeof(char) * ft_strlen(line) + 1);
+		data.map[i] = line;
+		i++;
 	}
+	data.map[i] = NULL;
+	close(fd);
 	return (data.map);
 }
 
@@ -63,6 +67,49 @@ void	aff_map(t_data data)
 	}
 }
 
-// setup_images(&img_ptr);
-// 	img_ptr.img = mlx_xpm_file_to_image(data.mlx_ptr, img_ptr.img_path, &img_ptr.img_x, &img_ptr.img_y);
-// 	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img_ptr.img, 200, 200);
+void	count_items(t_data *data)
+{
+	int	x;
+	int	y;
+	
+	y = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while(data->map[y][x])
+		{
+			if (data->map[y][x] == 'C')
+				data->nbr_collec++;
+			x++;
+		}
+		y++;
+	}
+	if (data->nbr_collec == 0)
+	{
+		(ft_printf("Error\nNo collectibles in map\n"));
+		end_program(*data);
+	}
+}
+
+void	get_player_pos(t_data *data)
+{
+	int x;
+	int y;
+	
+	y = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == 'P')
+			{
+				data->sprites.player.img_x = x;
+				data->sprites.player.img_y = y;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
