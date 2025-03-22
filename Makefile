@@ -4,10 +4,12 @@ NAME = so_long
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 FILES = main.c \
-		read_map.c \
-		moves.c \
+		check_diverse.c \
+		check_nbr.c \
 		check_map.c \
-		pathfinding.c
+		datas.c \
+		map_infos.c \
+		moves.c
 
 SRC = 	src/$(FILES)
 MLX = ./includes/mlx/Makefile.gen

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 02:54:06 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/21 19:18:17 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:08:56 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,7 @@ int	on_destroy(t_data *data)
 	return (0);
 }
 
-int	check_items(t_data *data, int x, int y)
-{
-	if (data->map[y][x] == 'C')
-		data->nbr_collec--;
-	return (0);
-}
-
-int handle_keypress(int keycode, t_data *data)
+int keypress(int keycode, t_data *data)
 {
     if (keycode == 119) // W
 		move_player(data, 0, -1);
@@ -43,7 +36,7 @@ int handle_keypress(int keycode, t_data *data)
     return (0);
 }
 
-void move_player(t_data *data, int dx, int dy)
+void p_move(t_data *data, int dx, int dy)
 {
 	get_player_pos(data);
     int new_x = data->sprites.player.img_x + dx;
@@ -59,14 +52,14 @@ void move_player(t_data *data, int dx, int dy)
         data->map[new_y][new_x] = 'P'; // Place le joueur à la nouvelle position
         aff_map(*data); // Rafraîchit l'affichage de la carte
     }
-	else if (data->map[new_y][new_x] == 'E')
-	{
-		if (data->nbr_collec == 0)
-		{
-			ft_printf("You win!\n");
-			on_destroy(data);
-		}
-		else
-			ft_printf("You need to collect all the items first! 🐮🥛\n");
-	}
+	// else if (data->map[new_y][new_x] == 'E')
+	// {
+	// 	if (data->nbr_collec == 0)
+	// 	{
+	// 		ft_printf("You win!\n");
+	// 		on_destroy(data);
+	// 	}
+	// 	else
+	// 		ft_printf("You need to collect all the items first! 🐮🥛\n");
+	// }
 }
