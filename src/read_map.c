@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 22:24:35 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/20 17:47:35 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/22 00:54:53 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	**read_map(t_data data)
 	fd = open((const char*) data.map_path, O_RDONLY);
 	while (get_next_line(fd))
 		count_lines++;
+	data.map_height = count_lines;
 	data.map = malloc(sizeof(char*) * count_lines + 1);
 	close(fd);
 	fd = open((const char*) data.map_path, O_RDONLY);

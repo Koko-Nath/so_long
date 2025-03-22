@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 02:54:06 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/20 18:27:20 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:18:17 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,13 @@ int handle_keypress(int keycode, t_data *data)
 void move_player(t_data *data, int dx, int dy)
 {
 	get_player_pos(data);
-	ft_printf("%s%d\n", "pos x =", data->sprites.player.img_x);
-	ft_printf("%s%d\n", "pos y =", data->sprites.player.img_y);
-	ft_printf("%s%d\n", "milky milk left =", data->nbr_collec);
-	
     int new_x = data->sprites.player.img_x + dx;
     int new_y = data->sprites.player.img_y + dy;
-    
     if (data->map[new_y][new_x] != '1' && data->map[new_y][new_x] != 'E')
     {
 		check_items(data, new_x, new_y);
+		data->move_count += 1;
+		ft_printf("%s%d\n", "👣 move count =", data->move_count);
         data->map[data->sprites.player.img_y][data->sprites.player.img_x] = '0'; // Efface l'ancienne position
         data->sprites.player.img_x = new_x;
         data->sprites.player.img_y = new_y;
@@ -70,6 +67,6 @@ void move_player(t_data *data, int dx, int dy)
 			on_destroy(data);
 		}
 		else
-			ft_printf("You need to collect all the items first!\n");
+			ft_printf("You need to collect all the items first! 🐮🥛\n");
 	}
 }
