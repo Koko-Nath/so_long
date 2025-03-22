@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 23:28:32 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 01:05:05 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:02:17 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	pathfinding(t_data *data, int x, int y, char last_move)
 		return (0);
 	if (data->map[y][x] == 'V')
 		return (1);
-	char original = data->map[y][x];
+	//char original = data->map[y][x];
 	data->map[y][x] = 'V'; 
 	if (last_move != 'A' && x + 1 < data->map_width &&
 		(data->map[y][x + 1] == '0' || data->map[y][x + 1] == 'E' || data->map[y][x + 1] == 'C'))
@@ -70,7 +70,7 @@ int	pathfinding(t_data *data, int x, int y, char last_move)
 		(data->map[y - 1][x] == '0' || data->map[y - 1][x] == 'E' || data->map[y - 1][x] == 'C'))
 		if (pathfinding(data, x, y - 1, 'W') == 0)
 			return (0);
-	data->map[y][x] = original;
+	//data->map[y][x] = original;
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 01:05:11 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:10:14 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,26 @@ typedef struct s_tile{
 	char	type;
 } t_tile;
 
+typedef struct s_map{
+	t_tile	**map;
+	int		width;
+	int		height;
+	int 	x_pos;
+	int 	y_pos;
+} t_map;
+
 typedef struct s_data {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	char		**map;
+	//char		**map;
 	char		*map_path;
-	int			map_width;
-	int			map_height;
+	//int			map_width;
+	//int			map_height;
 	int			move_count;
 	int			nbr_collec;
-	char		**tiles_map; // tableau de tableau de pointers sur tiles (tiles_map[y][x])
+	//char		**tiles_map; // tableau de tableau de pointers sur tiles (tiles_map[y][x])
+	t_map		map;
+	t_map	map_copy;
 	t_sprites	sprites;
 }	t_data;
 

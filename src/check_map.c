@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:02:57 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/21 18:57:54 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:13:10 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,17 +110,17 @@ void	check_characters(t_data data)
 	int y;
 	
 	y = 0;
-	while (data.map[y])
+	while (data.map.map[y])
 	{
 		x = 0;
-		while (data.map[y][x])
+		while (data.map.map[y][x])
 		{
-			if (data.map[y][x] != '0' && 
-				data.map[y][x] != '1' &&
-				 data.map[y][x] != 'C' &&
-				  data.map[y][x] != 'E' &&
-				   data.map[y][x] != 'P' &&
-				    data.map[y][x] != '\n')
+			if (data.map.map[y][x] != '0' && 
+				data.map.map[y][x] != '1' &&
+				 data.map.map[y][x] != 'C' &&
+				  data.map.map[y][x] != 'E' &&
+				   data.map.map[y][x] != 'P' &&
+				    data.map.map[y][x] != '\n')
 			{
 				ft_printf("Error, invalid character in map🌧️\n");
 				end_program(data);
@@ -138,14 +138,14 @@ void	check_map_shape(t_data data, int count_lines)
 	y = 0;	
 	while (y < count_lines - 1)
 	{
-		if (ft_strlen(data.map[y]) != ft_strlen(data.map[0]))
+		if (ft_strlen(data.map.map[y]) != ft_strlen(data.map.map[0]))
 		{
 			ft_printf("Error, invalid map shape🔶\n");
 			end_program(data);
 		}
 		y++;
 	}
-	if (ft_strlen(data.map[y]) != ft_strlen(data.map[0]) - 1)
+	if (ft_strlen(data.map.map[y]) != ft_strlen(data.map.map[0]) - 1)
 	{
 		ft_printf("Error, invalid map shape🔶\n");
 		end_program(data);
@@ -157,7 +157,7 @@ void	check_map(t_data data)
 	int count_lines;
 	
 	count_lines = 0;
-	while (data.map[count_lines])
+	while (data.map.map[count_lines])
 		count_lines++;
 	if (count_lines < 3)
 	{

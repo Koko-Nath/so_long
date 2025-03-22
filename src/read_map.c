@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 22:24:35 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 00:54:53 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:14:45 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	count_items(t_data *data)
 		while(data->map[y][x])
 		{
 			if (data->map[y][x] == 'C')
+			{
 				data->nbr_collec++;
+				pathfinding
 			x++;
 		}
 		y++;
