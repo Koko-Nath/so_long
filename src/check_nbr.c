@@ -6,13 +6,13 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:01:16 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 18:37:06 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/23 21:36:23 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	check_player_nbr(t_data *data, char **map)
+int	check_player_nbr(char **map)
 {
 	int	x;
 	int	y;
@@ -34,11 +34,12 @@ void	check_player_nbr(t_data *data, char **map)
 	if (player_count != 1)
 	{
 		ft_printf("Error, invalid number of player🧍\n");
-		end_program(data);
+		return (1);
 	}
+	return (0);
 }
 
-void	check_exit_nbr(t_data *data, char **map)
+int	check_exit_nbr(char **map)
 {
 	int	x;
 	int	y;
@@ -60,11 +61,12 @@ void	check_exit_nbr(t_data *data, char **map)
 	if (exit_count != 1)
 	{
 		ft_printf("Error, invalid number of exit⛩️\n");
-		end_program(data);
+		return (1);
 	}
+	return (0);
 }
 
-void	check_items_nbr(t_data *data, char **map)
+int	check_items_nbr(t_data *data, char **map)
 {
 	int	x;
 	int	y;
@@ -76,10 +78,7 @@ void	check_items_nbr(t_data *data, char **map)
 		while (map[y][x])
 		{
 			if (map[y][x] == 'C')
-			{
 				data->nbr_collec++;
-				//pathfinding
-			}
 			x++;
 		}
 		y++;
@@ -87,7 +86,8 @@ void	check_items_nbr(t_data *data, char **map)
 	if (data->nbr_collec < 1)
 	{
 		(ft_printf("Error\nNo collectibles in map\n"));
-		end_program(data);
+		return (1);
 	}
+	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 18:39:18 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/23 21:44:31 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ typedef struct s_map{
 	char	**matrix;
 	int 	x_pos;
 	int 	y_pos;
+	int		x_max;
+	int		y_max;
+	int		c_left;
 	char	*path;
 } t_map;
 
@@ -67,8 +70,8 @@ typedef struct s_data {
 	int			nbr_collec;
 	int			x_width;
 	int			y_height;
+	char		old_tile;
 	t_map		map;
-	//t_map		map_copy;
 	t_sprites	sprites;
 }	t_data;
 
@@ -76,41 +79,44 @@ typedef struct s_data {
 
 //CHECK DIVERSE
 
-void	check_map_path(t_data *data);
-void	check_char(t_data *data, char **map);
-void	full_checker(t_data *data);
+int		check_map_path(char *map_path); // OK
+int		check_char(int x_max, char **map); // OK
+int		full_checker(t_data *data); // OK
 
 //CHECK MAP
 
-void	check_map_border(t_data *data, char **map, int y_max, int x_max);
-void	check_map_shape(t_data *data, char **map, int y_max);
-void	check_one_border(t_data *data, char **map, int y, int x);
+int	check_map_border(char **map, int y_max, int x_max); // OK
+int	check_map_shape(char **map, int y_max); // OK
+int	check_one_border(char **map, int y, int x, int y_max, int x_max);	// OK
+int	pathfinding(t_map *data, char **map, int x, int y, char last_move);
+int	check_pathfinding(t_data *data);
 
 //CHECK NBR
 
-void	check_exit_nbr(t_data *data, char **map);
-void	check_items_nbr(t_data *data, char **map);
-void	check_player_nbr(t_data *data, char **map);
+int	check_exit_nbr(char **map); // OK
+int	check_items_nbr(t_data *data, char **map); // OK
+int	check_player_nbr(char **map); // OK
 
 // DATAS
 
 void	init_datas(t_data *data);
-void	init_map(t_data *data);
-void	init_sprites(t_data data);
-void	end_program(t_data *data);
+char	**init_map(t_data *data);
+void	init_sprites(t_data *data);
+int		end_program(t_data *data);
 
 // MAP INFOS
 
-void	aff_map(t_map map, t_data *data);
+void	aff_map(t_data *data, char **map);
 void	get_player_pos(t_data *data);
-int		is_item_or_exit(t_data *data, int x, int y);
+int		is_item_or_exit(t_data *data, char **map, int x, int y);
 
 // MOVES
 
 void	p_move(t_data *data, int dx, int dy);
 int		keypress(int keycode, t_data *data);
-int		on_destroy(t_data *data);
+//int		on_destroy(t_data *data);
 
 //
 
 #endif
+

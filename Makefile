@@ -9,6 +9,7 @@ FILES = main.c \
 		check_map.c \
 		datas.c \
 		map_infos.c \
+		pathfinding.c \
 		moves.c
 
 SRC = 	src/$(FILES)

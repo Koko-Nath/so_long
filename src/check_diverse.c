@@ -6,27 +6,28 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:54:39 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 18:31:02 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/23 22:54:03 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	check_map_path(t_data *data)
+int	check_map_path(char *map_path)
 {
 	int fd;
 	
 	//checker le format .ber et non .txt
-	fd = open((const char*) data->map.path, O_RDONLY);
+	fd = open((const char*) map_path, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_printf("Error, invalid map path🗺️\n");
-		end_program(data);
+		return(1);
 	}
 	close(fd);
+	return (0);
 }
 
-void	check_char(t_data *data, char **map)
+int	check_char(int x_max, char **map)
 {
 	int x;
 	int y;
@@ -35,7 +36,7 @@ void	check_char(t_data *data, char **map)
 	while (map[y])
 	{
 		x = 0;
-		while (x < data->x_width - 1)
+		while (x < x_max - 1)
 		{
 			if (map[y][x] != '0' && 
 				map[y][x] != '1' &&
@@ -44,32 +45,32 @@ void	check_char(t_data *data, char **map)
 				   map[y][x] != 'P')
 			{
 				ft_printf("Error, invalid character in map🌧️\n");
-				end_program(data);
+				return(1);
 			}
 			x++;
 		}
 		y++;
 	}
+	return (0);
 }
 
-void	full_checker(t_data *data)
+int	full_checker(t_data *data)
 {
-	int count_lines;
-	
-	count_lines = 0;
-	while (data->map.matrix[count_lines])
-		count_lines++;
-	if (count_lines < 3)
-	{
-		ft_printf("Error, invalid map shape🔶\n");
-		end_program(data);
-	}
-	data->y_height = count_lines;
-	data->x_width = ft_strlen(data->map.matrix[0]);
-	check_char(data, data->map.matrix);
-	check_map_shape(data, data->map.matrix, data->y_height);
-	//check_player_nbr(*data, data.map_copy.matrix);
-	//check_exit_nbr(*data, data.map_copy.matrix);
-	//check_items_nbr(*data, data.map_copy.matrix);
-	//check_map_border(*data, data.map_copy.matrix);
+	if (check_map_path(data->map.path) == 1)
+		return (1);
+	if (check_char(data->x_width, data->map.matrix) == 1)
+		return (1);
+	if (check_map_shape(data->map.matrix, data->y_height) == 1)
+		return (1);
+	if (check_map_border(data->map.matrix, data->y_height, data->x_width) == 1)
+		return (1);
+	if (check_items_nbr(data, data->map.matrix) == 1)
+		return (1);
+	if (check_player_nbr(data->map.matrix) == 1)
+		return (1);
+	if (check_exit_nbr(data->map.matrix) == 1)
+		return (1);
+	//if (check_pathfinding(data) == 1)
+	//	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:01:43 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 18:35:15 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/03/23 21:48:03 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int main(int argc, char **argv)
 	data.map.path = argv[1];
 	data.map.matrix = NULL;
 	init_datas(&data);
-	aff_map(data.map, &data);
-	//mlx_key_hook(data.win_ptr, keypress, &data);
-	//mlx_loop(data.mlx_ptr);
-	//end_program(data);
+	aff_map(&data, data.map.matrix);
+	mlx_key_hook(data.win_ptr, keypress, &data);
+	mlx_loop(data.mlx_ptr);
+	end_program(&data);
 	return (0);
 }
 
