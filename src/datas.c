@@ -6,24 +6,32 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:57:24 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:37:31 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:51:11 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_sprites(t_data *data, t_sprites *s)
+void	init_sprites(t_data *data)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	s->bush.img = mlx_xpm_file_to_image(data->mlx, BUSH_PATH, &x, &y);
-	s->floor.img = mlx_xpm_file_to_image(data->mlx, FLOOR_PATH, &x, &y);
-	s->exit.img = mlx_xpm_file_to_image(data->mlx, EXIT_PATH, &x, &y);
-	s->milk.img = mlx_xpm_file_to_image(data->mlx, MILK_PATH, &x, &y);
-	s->player.img = mlx_xpm_file_to_image(data->mlx, PLAYER_PATH, &x, &y);
+	ft_printf("OUI");
+	data->sprites.bush.img = mlx_xpm_file_to_image(data->mlx, BUSH_PATH, 
+		&data->sprites.bush.img_x, &data->sprites.bush.img_y);
+	data->sprites.floor.img = mlx_xpm_file_to_image(data->mlx, FLOOR_PATH, 
+		&data->sprites.floor.img_x, &data->sprites.floor.img_y);
+	data->sprites.exit.img = mlx_xpm_file_to_image(data->mlx, EXIT_PATH, 
+		&data->sprites.exit.img_x, &data->sprites.exit.img_y);
+	data->sprites.milk.img = mlx_xpm_file_to_image(data->mlx, MILK_PATH, 
+		&data->sprites.milk.img_x, &data->sprites.milk.img_y);
+	data->sprites.player.img = mlx_xpm_file_to_image(data->mlx, PLAYER_PATH, 
+		&data->sprites.player.img_x, &data->sprites.player.img_y);
+	if (!data->sprites.bush.img  || !data->sprites.floor.img ||
+		!data->sprites.milk.img || !data->sprites.player.img
+		|| !data->sprites.exit.img)
+	{
+		ft_printf("%s\n", "Error.\n Problem initialising images");
+		free_images(data);
+	}
 }
 
 int	get_y_max(t_data *data)
@@ -42,7 +50,7 @@ int	get_y_max(t_data *data)
 		count_lines++;
 	}
 	if (count_lines < 3)
-		return (ft_printf("Error. \n invalid map shape 🔶\n"), 1);
+		return (ft_printf("Error.\ninvalid map shape 🔶\n"), 1);
 	data->y_height = count_lines;
 	close(fd);
 	return (0);
@@ -50,17 +58,17 @@ int	get_y_max(t_data *data)
 
 void	init_datas(t_data *data)
 {
+	data->map.matrix = NULL;
 	if (check_map_path(data->map.path) == 1)
 		end_program(data);
 	if (get_y_max(data) == 1)
 		end_program(data);
-	init_sprites(data, &data->sprites);
 	data->map.matrix = init_map(data);
 	data->x_width = ft_strlen(data->map.matrix[1]);
-	get_player_pos(data);
-	data->nbr_collec = 0;
-	data->move_count = 0;
+	//data->nbr_collec = 0;
+	//data->move_count = 0;
 	data->old_tile = '0';
+	get_player_pos(data);
 	if (full_checker(data) == 1)
 		end_program(data);
 }
@@ -72,9 +80,16 @@ char	**init_map(t_data *data)
 	char	*line;
 	char	**map;
 
+	//data->map.matrix = NULL;
 	line = NULL;
 	i = 0;
 	map = ft_calloc(sizeof(char *), data->y_height + 1);
+	if (!map)
+	{
+		ft_printf("%s\n", "Error.\nError initializing map");
+		free_map(data->map.matrix);
+		exit (1);
+	}
 	fd = open ((const char *) data->map.path, O_RDONLY);
 	while (i != data->y_height - 1)
 	{
@@ -87,8 +102,14 @@ char	**init_map(t_data *data)
 
 int	end_program(t_data *data)
 {
-	free(data->map.matrix);
+	// mlx_destroy_image(data->mlx, data->sprites.bush.img);
+	// mlx_destroy_image(data->mlx, data->sprites.milk.img);
+	// mlx_destroy_image(data->mlx, data->sprites.exit.img);
+	// mlx_destroy_image(data->mlx, data->sprites.player.img);
+	// mlx_destroy_image(data->mlx, data->sprites.bush.img);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
+	free(data->mlx);
+	free_map(data->map.matrix);
 	exit(0);
 }

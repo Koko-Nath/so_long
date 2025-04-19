@@ -1,7 +1,7 @@
 .PHONY: all re clean fclean
 
 NAME = so_long
-CC = cc -g
+CC = cc -g3
 CFLAGS = -Wall -Werror -Wextra
 FILES = main.c \
 		check_diverse.c \
@@ -10,7 +10,8 @@ FILES = main.c \
 		datas.c \
 		map_infos.c \
 		pathfinding.c \
-		moves.c
+		moves.c \
+		free_functions.c 
 
 SRC = 	src/$(FILES)
 MLX = ./includes/mlx/Makefile.gen

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:01:43 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:34:29 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:50:09 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,31 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Error. \n invalid number of arguments📄\n");
+		ft_printf("Error.\ninvalid number of arguments📄\n");
 		return (1);
 	}
+	ft_bzero(&data, sizeof(t_data));
+	data.map.path = argv[1];
+	init_datas(&data);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		return (ft_printf("Error. \n mlx_init failed🛡️\n"), 1);
-	data.win = mlx_new_window(data.mlx, 1920, 1920, "les 42 coups de midi");
+		return (ft_printf("Error.\nmlx_init failed🛡️\n"), 1);
+	data.win = mlx_new_window(data.mlx, 1920, 1920, "so_long");
 	if (!data.win)
 	{
-		free(data.mlx);
-		ft_printf("Error. \n mlx_window init failed🛡️");
-		return (1);
+		destroy_display(&data);
+		ft_printf("Error.\nmlx_window init failed🛡️");
+		exit (1);
 	}
-	data.map.path = argv[1];
-	data.map.matrix = NULL;
-	init_datas(&data);
+	init_sprites(&data);
 	aff_map(&data);
 	mlx_key_hook(data.win, keypress, &data);
 	mlx_loop(data.mlx);
-	end_program(&data);
+	//end_program(&data);
 	return (0);
 }
+
+
 
 // MAIN QUI TEST QUE LE PATHFINDING
 

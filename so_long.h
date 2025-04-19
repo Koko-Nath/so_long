@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:40:15 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:46:11 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,12 @@ void	init_datas(t_data *data);
 char	**init_map(t_data *data);
 //char	**init_map(t_data *data, char **map);
 //void	init_map(t_data *data, char **map);
-void	init_sprites(t_data *data, t_sprites *s);
+void	init_sprites(t_data *data);
 int		end_program(t_data *data);
+void	free_map(char **map);
+void	destroy_display(t_data *data);
+void	free_images(t_data *data);
+void	close_window(t_data *data);
 
 // MAP INFOS
 

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 02:54:06 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:12:38 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/19 19:46:24 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	keypress(int keycode, t_data *data)
 	else if (keycode == 100)
 		p_move(data, 1, 0);
 	else if (keycode == 65307)
-		end_program(data);
+		close_window(data);
 	return (0);
 }
 
