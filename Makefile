@@ -1,7 +1,7 @@
 .PHONY: all re clean fclean
 
 NAME = so_long
-CC = cc
+CC = cc -g
 CFLAGS = -Wall -Werror -Wextra
 FILES = main.c \
 		check_diverse.c \

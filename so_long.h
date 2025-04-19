@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/23 21:44:31 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:40:15 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 // --------------------DEFINES--------------------
 
-# define bush_path "assets/bush.xpm"
-# define milk_path "assets/milk.xpm"
-# define floor_path "assets/floor.xpm"
-# define player_path "assets/player.xpm"
-# define exit_path "assets/exit.xpm"
+# define BUSH_PATH "assets/bush.xpm"
+# define MILK_PATH "assets/milk.xpm"
+# define FLOOR_PATH "assets/floor.xpm"
+# define PLAYER_PATH "assets/player.xpm"
+# define EXIT_PATH "assets/exit.xpm"
 
 // --------------------INCLUDES--------------------
 
@@ -31,45 +31,50 @@
 
 // --------------------STRUCTURES--------------------
 
-typedef struct s_images{
+typedef struct s_images
+{
 	void	*img;
 	char	*img_path;
 	int		img_x;
 	int		img_y;
-} t_images;
+}	t_images;
 
-typedef struct s_sprites{
-	t_images bush;
-	t_images floor;
-	t_images exit;
-	t_images milk;
-	t_images player;
-} t_sprites;
+typedef struct s_sprites
+{
+	t_images	bush;
+	t_images	floor;
+	t_images	exit;
+	t_images	milk;
+	t_images	player;
+}	t_sprites;
 
-typedef struct s_tile{
+typedef struct s_tile
+{
 	void	*tile_ptr;
 	int		x;
 	int		y;
 	char	type;
-} t_tile;
+}	t_tile;
 
-typedef struct s_map{
+typedef struct s_map
+{
 	char	**matrix;
-	int 	x_pos;
-	int 	y_pos;
-	int		x_max;
-	int		y_max;
+	size_t	x_pos;
+	size_t	y_pos;
+	size_t	x_max;
+	size_t	y_max;
 	int		c_left;
 	char	*path;
-} t_map;
+}	t_map;
 
-typedef struct s_data {
-	void		*mlx_ptr;
-	void		*win_ptr;
+typedef struct s_data
+{
+	void		*mlx;
+	void		*win;
 	int			move_count;
 	int			nbr_collec;
-	int			x_width;
-	int			y_height;
+	size_t		x_width;
+	size_t		y_height;
 	char		old_tile;
 	t_map		map;
 	t_sprites	sprites;
@@ -80,35 +85,36 @@ typedef struct s_data {
 //CHECK DIVERSE
 
 int		check_map_path(char *map_path); // OK
-int		check_char(int x_max, char **map); // OK
+int		check_char(char **map, size_t y_max, size_t x_max); // OK
 int		full_checker(t_data *data); // OK
 
 //CHECK MAP
 
-int	check_map_border(char **map, int y_max, int x_max); // OK
-int	check_map_shape(char **map, int y_max); // OK
-int	check_one_border(char **map, int y, int x, int y_max, int x_max);	// OK
-int	pathfinding(t_map *data, char **map, int x, int y, char last_move);
-int	check_pathfinding(t_data *data);
+int		check_map_border(t_data *data, size_t y_max, size_t x_max); // OK
+int		check_map_shape(char **map, size_t y_max); // OK
+int		check_one_border(char **map, size_t y, size_t x, t_data *data);	// OK
+int		check_pathfinding(t_data *data);
 
 //CHECK NBR
 
-int	check_exit_nbr(char **map); // OK
-int	check_items_nbr(t_data *data, char **map); // OK
-int	check_player_nbr(char **map); // OK
+int		check_exit_nbr(char **map, size_t y_max, size_t x_max); // OK
+int		check_items_nbr(t_data *data, char **map); // OK
+int		check_player_nbr(char **map, size_t y_max, size_t x_max); // OK
 
 // DATAS
 
 void	init_datas(t_data *data);
 char	**init_map(t_data *data);
-void	init_sprites(t_data *data);
+//char	**init_map(t_data *data, char **map);
+//void	init_map(t_data *data, char **map);
+void	init_sprites(t_data *data, t_sprites *s);
 int		end_program(t_data *data);
 
 // MAP INFOS
 
-void	aff_map(t_data *data, char **map);
+void	aff_map(t_data *data);
 void	get_player_pos(t_data *data);
-int		is_item_or_exit(t_data *data, char **map, int x, int y);
+int		is_item_or_exit(t_data *data, char **map, size_t x, size_t y);
 
 // MOVES
 
@@ -116,7 +122,4 @@ void	p_move(t_data *data, int dx, int dy);
 int		keypress(int keycode, t_data *data);
 //int		on_destroy(t_data *data);
 
-//
-
 #endif
-

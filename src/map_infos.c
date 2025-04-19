@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:06:12 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/23 21:47:44 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:24:32 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	get_player_pos(t_data *data)
 {
-	int x;
-	int y;
-	
+	size_t	x;
+	size_t	y;
+
 	y = 0;
-	while (data->map.matrix[y])
+	while (y != data->y_height - 1)
 	{
 		x = 0;
-		while (data->map.matrix[y][x])
+		while (x != data->x_width - 1)
 		{
 			if (data->map.matrix[y][x] == 'P')
 			{
@@ -34,47 +34,49 @@ void	get_player_pos(t_data *data)
 	}
 }
 
-void	aff_tile(t_data *data, char **map, t_sprites *s, int x, int y)
+void	aff_tile(t_data *data, t_sprites *s, size_t x, size_t y)
 {
-	if (map[y][x] == '0')
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, s->floor.img, (x * 64), (y * 64));
-	if (map[y][x] == '1')
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, s->bush.img, (x * 64), (y * 64));
-	if (map[y][x] == 'C')
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, s->milk.img, (x * 64), (y * 64));
-	if (map[y][x] == 'E')
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, s->exit.img, (x * 64), (y * 64));
-	if (map[y][x] == 'P')
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, s->player.img, (x * 64), (y * 64));
+	x = x * 64;
+	y = y * 64;
+	if (data->map.matrix[y / 64][x / 64] == '0')
+		mlx_put_image_to_window(data->mlx, data->win, s->floor.img, x, y);
+	if (data->map.matrix[y / 64][x / 64] == '1')
+		mlx_put_image_to_window(data->mlx, data->win, s->bush.img, x, y);
+	if (data->map.matrix[y / 64][x / 64] == 'C')
+		mlx_put_image_to_window(data->mlx, data->win, s->milk.img, x, y);
+	if (data->map.matrix[y / 64][x / 64] == 'E')
+		mlx_put_image_to_window(data->mlx, data->win, s->exit.img, x, y);
+	if (data->map.matrix[y / 64][x / 64] == 'P')
+		mlx_put_image_to_window(data->mlx, data->win, s->player.img, x, y);
 }
 
-void	aff_map(t_data *data, char **map)
+void	aff_map(t_data *data)
 {
-	int	x;
-	int	y;
-	
+	size_t	x;
+	size_t	y;
+
 	y = 0;
-	while (map[y])
+	while (y != data->y_height - 1)
 	{
 		x = 0;
-		while(map[y][x])
+		while (x != data->x_width - 1)
 		{
-			aff_tile(data, map, &data->sprites, x, y);
+			aff_tile(data, &data->sprites, x, y);
 			x++;
 		}
 		y++;
 	}
 }
 
-
-int	is_item_or_exit(t_data *data, char **map, int x, int y)
+int	is_item_or_exit(t_data *data, char **map, size_t x, size_t y)
 {
 	if (map[y][x] == 'C')
 		data->nbr_collec--;
-	else if (map[x][y] == 'E')
+	else if (map[y][x] == 'E')
 	{
 		if (data->nbr_collec == 0)
 		{
+			data->move_count++;
 			ft_printf("You win!\n");
 			end_program(data);
 		}
