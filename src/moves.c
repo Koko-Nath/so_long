@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 02:54:06 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 19:46:24 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:06:24 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	keypress(int keycode, t_data *data)
 	else if (keycode == 100)
 		p_move(data, 1, 0);
 	else if (keycode == 65307)
-		close_window(data);
+		end_program(data);
 	return (0);
 }
 
@@ -34,8 +34,8 @@ void	p_move(t_data *data, int dx, int dy)
 	int	old_x;
 	int	old_y;
 
-	old_x = data->sprites.player.img_x;
-	old_y = data->sprites.player.img_y;
+	old_x = data->player_x;
+	old_y = data->player_y;
 	new_x = old_x + dx;
 	new_y = old_y + dy;
 	if (data->map.matrix[new_y][new_x] != '1')
@@ -47,8 +47,8 @@ void	p_move(t_data *data, int dx, int dy)
 			data->old_tile = '0';
 		data->move_count += 1;
 		ft_printf("%s%d\n", "👣 move count =", data->move_count);
-		data->sprites.player.img_x = new_x;
-		data->sprites.player.img_y = new_y;
+		data->player_x = new_x;
+		data->player_y = new_y;
 		data->map.matrix[new_y][new_x] = 'P';
 		aff_map(data);
 	}

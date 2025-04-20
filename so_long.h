@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 19:46:11 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:57:09 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_data
 	int			nbr_collec;
 	size_t		x_width;
 	size_t		y_height;
+	size_t		player_x;
+	size_t		player_y;
 	char		old_tile;
 	t_map		map;
 	t_sprites	sprites;

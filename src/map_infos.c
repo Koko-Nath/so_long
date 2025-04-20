@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:06:12 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:24:32 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:56:04 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	get_player_pos(t_data *data)
 		{
 			if (data->map.matrix[y][x] == 'P')
 			{
-				data->sprites.player.img_x = x;
-				data->sprites.player.img_y = y;
+				data->player_x = x;
+				data->player_y = y;
 			}
 			x++;
 		}

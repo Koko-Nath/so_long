@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:57:24 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 19:51:11 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:37:41 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_sprites(t_data *data)
 	{
 		ft_printf("%s\n", "Error.\n Problem initialising images");
 		free_images(data);
+		end_program(data);
 	}
 }
 
@@ -77,39 +78,28 @@ char	**init_map(t_data *data)
 {
 	int		fd;
 	size_t	i;
-	char	*line;
+	//char	*line;
 	char	**map;
 
-	//data->map.matrix = NULL;
-	line = NULL;
+	map = NULL;
+	//line = NULL;
 	i = 0;
 	map = ft_calloc(sizeof(char *), data->y_height + 1);
 	if (!map)
 	{
 		ft_printf("%s\n", "Error.\nError initializing map");
-		free_map(data->map.matrix);
+		free_map(map);
 		exit (1);
 	}
 	fd = open ((const char *) data->map.path, O_RDONLY);
 	while (i != data->y_height - 1)
 	{
 		map[i] = (get_next_line(fd));
+		//free(map[i]);
 		i++;
 	}
+	//free(map[i]);
 	close(fd);
 	return (map);
 }
 
-int	end_program(t_data *data)
-{
-	// mlx_destroy_image(data->mlx, data->sprites.bush.img);
-	// mlx_destroy_image(data->mlx, data->sprites.milk.img);
-	// mlx_destroy_image(data->mlx, data->sprites.exit.img);
-	// mlx_destroy_image(data->mlx, data->sprites.player.img);
-	// mlx_destroy_image(data->mlx, data->sprites.bush.img);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	free_map(data->map.matrix);
-	exit(0);
-}
