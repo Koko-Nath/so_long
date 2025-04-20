@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:54:39 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:34:04 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:49:11 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_map_path(char *map_path)
 	fd = open ((const char *) map_path, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_printf("Error. \n invalid map path🗺️\n");
+		ft_printf("Error.\ninvalid map path🗺️\n");
 		return (1);
 	}
 	close(fd);
@@ -44,7 +44,7 @@ int	check_char(char **map, size_t y_max, size_t x_max)
 				map[y][x] != 'E' &&
 				map[y][x] != 'P')
 			{
-				ft_printf("Error. \n invalid character in map 🌧️\n");
+				ft_printf("Error.\ninvalid character in map 🌧️\n");
 				return (1);
 			}
 			x++;

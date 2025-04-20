@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:01:16 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:27:22 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:50:06 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_player_nbr(char **map, size_t y_max, size_t x_max)
 	}
 	if (player_count != 1)
 	{
-		ft_printf("Error. \n invalid number of player 🧍\n");
+		ft_printf("Error.\ninvalid number of player 🧍\n");
 		return (1);
 	}
 	return (0);
@@ -60,7 +60,7 @@ int	check_exit_nbr(char **map, size_t y_max, size_t x_max)
 	}
 	if (exit_count != 1)
 	{
-		ft_printf("Error. \n invalid number of exit ⛩️\n");
+		ft_printf("Error.\ninvalid number of exit ⛩️\n");
 		return (1);
 	}
 	return (0);
@@ -84,6 +84,6 @@ int	check_items_nbr(t_data *data, char **map)
 		y++;
 	}
 	if (data->nbr_collec < 1)
-		return (ft_printf("Error. \n no collectibles in map\n"), 1);
+		return (ft_printf("Error.\n no collectibles in map 🥛\n"), 1);
 	return (0);
 }

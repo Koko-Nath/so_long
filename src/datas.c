@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:57:24 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 20:44:04 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:50:49 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_sprites(t_data *data)
 		|| !data->sprites.milk.img || !data->sprites.player.img
 		|| !data->sprites.exit.img)
 	{
-		ft_printf("%s\n", "Error.\n Problem initialising images");
+		ft_printf("Error.\nProblem initialising images\n");
 		free_images(data);
 		end_program(data);
 	}
@@ -65,7 +65,6 @@ void	init_datas(t_data *data)
 		end_program(data);
 	data->map.matrix = init_map(data);
 	data->x_width = ft_strlen(data->map.matrix[1]);
-	//ft_printf("\n\n%s%d\n\n", "LINE SIZE =", data->x_width);
 	data->old_tile = '0';
 	get_player_pos(data);
 	if (full_checker(data) == 1)
@@ -83,7 +82,7 @@ char	**init_map(t_data *data)
 	map = ft_calloc(sizeof(char *), data->y_height + 1);
 	if (!map)
 	{
-		ft_printf("%s\n", "Error.\nError initializing map");
+		ft_printf("Error.\nError initializing map\n");
 		free_map(map);
 		exit (1);
 	}

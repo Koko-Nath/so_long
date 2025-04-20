@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:06:12 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 17:56:04 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:52:28 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	is_item_or_exit(t_data *data, char **map, size_t x, size_t y)
 		if (data->nbr_collec == 0)
 		{
 			data->move_count++;
-			ft_printf("You win!\n");
+			ft_printf("%s%d\n", "👣 move count =", data->move_count);
+			ft_printf("🎉🎉🎉 You win ! 🎉🎉🎉\n");
 			end_program(data);
 		}
 		else

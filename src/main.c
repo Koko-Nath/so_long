@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:01:43 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 19:02:32 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:51:03 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Error.\ninvalid number of arguments📄\n");
+		ft_printf("Error.\ninvalid number of arguments 📄\n");
 		return (1);
 	}
 	ft_bzero(&data, sizeof(t_data));
@@ -26,12 +26,12 @@ int	main(int argc, char **argv)
 	init_datas(&data);
 	data.mlx = mlx_init();
 	if (!data.mlx)
-		return (ft_printf("Error.\nmlx_init failed🛡️\n"), 1);
+		return (ft_printf("Error.\nmlx_init failed 🛡️\n"), 1);
 	data.win = mlx_new_window(data.mlx, (((int)data.x_width - 1) * 64),
 			(((int)data.y_height - 1) * 64), "so_long");
 	if (!data.win)
 	{
-		ft_printf("Error.\nmlx_window init failed🛡️");
+		ft_printf("Error.\nmlx_window init failed 🛡️");
 		end_program(&data);
 	}
 	init_sprites(&data);

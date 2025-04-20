@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:26:40 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 20:34:42 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:53:22 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_pathfinding(t_data *data)
 	if (stash_map.c_left != (data->nbr_collec + 1))
 	{
 		free_map(stash_map.matrix);
-		ft_printf("%s\n", "Error. \n no path found");
+		ft_printf("Error.\nno path found 🛤️\n");
 		return (1);
 	}
 	free_map(stash_map.matrix);
