@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 18:32:25 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 18:56:43 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 19:02:42 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,6 @@ int	end_program(t_data *data)
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	//free(data->mlx);
 	free_map(data->map.matrix);
 	exit(0);
 }
-
-// int	end_program(t_data *data)
-// {
-// 	if (data->win)
-// 		mlx_destroy_window(data->mlx, data->win);
-// 	if (data->mlx)
-// 	{
-// 		free(data->mlx);
-// 		mlx_destroy_display(data->mlx);
-// 	}
-// 	free_images(data);
-// 	//free(data->mlx);
-// 	if (data->map.matrix)
-// 		free_map(data->map.matrix);
-// 	exit(0);
-// }
