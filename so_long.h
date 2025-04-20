@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/03/22 01:05:11 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:57:09 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 // --------------------DEFINES--------------------
 
-# define bush_path "assets/bush.xpm"
-# define milk_path "assets/milk.xpm"
-# define floor_path "assets/floor.xpm"
-# define player_path "assets/player.xpm"
-# define exit_path "assets/exit.xpm"
+# define BUSH_PATH "assets/bush.xpm"
+# define MILK_PATH "assets/milk.xpm"
+# define FLOOR_PATH "assets/floor.xpm"
+# define PLAYER_PATH "assets/player.xpm"
+# define EXIT_PATH "assets/exit.xpm"
 
 // --------------------INCLUDES--------------------
 
@@ -31,67 +31,101 @@
 
 // --------------------STRUCTURES--------------------
 
-typedef struct s_images{
+typedef struct s_images
+{
 	void	*img;
 	char	*img_path;
 	int		img_x;
 	int		img_y;
-} t_images;
+}	t_images;
 
-typedef struct s_sprites{
-	t_images bush;
-	t_images floor;
-	t_images exit;
-	t_images milk;
-	t_images player;
-} t_sprites;
+typedef struct s_sprites
+{
+	t_images	bush;
+	t_images	floor;
+	t_images	exit;
+	t_images	milk;
+	t_images	player;
+}	t_sprites;
 
-typedef struct s_tile{
+typedef struct s_tile
+{
 	void	*tile_ptr;
 	int		x;
 	int		y;
 	char	type;
-} t_tile;
+}	t_tile;
 
-typedef struct s_data {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	char		**map;
-	char		*map_path;
-	int			map_width;
-	int			map_height;
+typedef struct s_map
+{
+	char	**matrix;
+	size_t	x_pos;
+	size_t	y_pos;
+	size_t	x_max;
+	size_t	y_max;
+	int		c_left;
+	char	*path;
+}	t_map;
+
+typedef struct s_data
+{
+	void		*mlx;
+	void		*win;
 	int			move_count;
 	int			nbr_collec;
-	char		**tiles_map; // tableau de tableau de pointers sur tiles (tiles_map[y][x])
+	size_t		x_width;
+	size_t		y_height;
+	size_t		player_x;
+	size_t		player_y;
+	char		old_tile;
+	t_map		map;
 	t_sprites	sprites;
 }	t_data;
 
 // --------------------FUNCTIONS-------------------- 
 
-//INIT
-void	setup_datas(t_sprites *img, t_data *data);
-void	*load_textures(t_data data);
-char	**read_map(t_data data);
+//CHECK DIVERSE
 
-void	aff_map(t_data data);
+int		check_map_path(char *map_path); // OK
+int		check_char(char **map, size_t y_max, size_t x_max); // OK
+int		full_checker(t_data *data); // OK
 
-//MOVES
-int 	handle_keypress(int keycode, t_data *data);
-void 	move_player(t_data *data, int dx, int dy);
+//CHECK MAP
+
+int		check_map_border(t_data *data, size_t y_max, size_t x_max); // OK
+int		check_map_shape(char **map, size_t y_max); // OK
+int		check_one_border(char **map, size_t y, size_t x, t_data *data);	// OK
+int		check_pathfinding(t_data *data);
+
+//CHECK NBR
+
+int		check_exit_nbr(char **map, size_t y_max, size_t x_max); // OK
+int		check_items_nbr(t_data *data, char **map); // OK
+int		check_player_nbr(char **map, size_t y_max, size_t x_max); // OK
+
+// DATAS
+
+void	init_datas(t_data *data);
+char	**init_map(t_data *data);
+//char	**init_map(t_data *data, char **map);
+//void	init_map(t_data *data, char **map);
+void	init_sprites(t_data *data);
+int		end_program(t_data *data);
+void	free_map(char **map);
+void	destroy_display(t_data *data);
+void	free_images(t_data *data);
+void	close_window(t_data *data);
+
+// MAP INFOS
+
+void	aff_map(t_data *data);
 void	get_player_pos(t_data *data);
+int		is_item_or_exit(t_data *data, char **map, size_t x, size_t y);
 
-//CHECKS
-void	count_items(t_data *data);
-int		check_items(t_data *data, int x, int y);
-void	check_collectible(t_data *data, int x, int y);
-void	check_map(t_data data);
+// MOVES
 
-
-//MISCELANNEOUS
-void	end_program(t_data data);
-int		on_destroy(t_data *data);
-
-// TESTS PATHFINDING
-int	pathfinding(t_data *data, int x, int y, char last_move);
+void	p_move(t_data *data, int dx, int dy);
+int		keypress(int keycode, t_data *data);
+//int		on_destroy(t_data *data);
 
 #endif
