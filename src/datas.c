@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:57:24 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 19:01:54 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:44:04 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_sprites(t_data *data)
 {
-	ft_printf("OUI");
 	data->sprites.bush.img = mlx_xpm_file_to_image(data->mlx, BUSH_PATH,
 			&data->sprites.bush.img_x, &data->sprites.bush.img_y);
 	data->sprites.floor.img = mlx_xpm_file_to_image(data->mlx, FLOOR_PATH,
@@ -66,6 +65,7 @@ void	init_datas(t_data *data)
 		end_program(data);
 	data->map.matrix = init_map(data);
 	data->x_width = ft_strlen(data->map.matrix[1]);
+	//ft_printf("\n\n%s%d\n\n", "LINE SIZE =", data->x_width);
 	data->old_tile = '0';
 	get_player_pos(data);
 	if (full_checker(data) == 1)

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:26:40 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 18:38:16 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:34:42 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	check_pathfinding(t_data *data)
 	p_x = data->player_x;
 	p_y = data->player_y;
 	pathfinding(stash_map.matrix, p_y, p_x, &stash_map);
-	ft_printf("%s%d\n", "check_left = ", stash_map.c_left);
 	if (stash_map.c_left != (data->nbr_collec + 1))
 	{
 		free_map(stash_map.matrix);

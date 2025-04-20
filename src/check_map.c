@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:02:57 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/19 16:33:24 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 20:47:40 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_one_border(char **map, size_t y, size_t x, t_data *data)
 {
-	if (y == 0 || y == data->y_height)
+	if (y == 0 || y == data->y_height - 2)
 	{
 		if (map[y][x] != '1')
 		{
@@ -22,7 +22,8 @@ int	check_one_border(char **map, size_t y, size_t x, t_data *data)
 			return (1);
 		}
 	}
-	if (x == 0 || x == data->x_width - 1)
+	//ft_printf("%d\n", x);
+	if (x == 0 || x == data->x_width - 2)
 	{
 		if (map[y][x] != '1')
 		{
@@ -74,3 +75,9 @@ int	check_map_shape(char **map, size_t y_max)
 	}
 	return (0);
 }
+
+// int	check_map_size(size_t y_max, size_t x_max)
+// {
+// 	if (y_max > 32)
+//	if (x_max > 61)
+// }
