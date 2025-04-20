@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:02:57 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 20:49:00 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 21:03:50 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ int	check_map_shape(char **map, size_t y_max)
 	return (0);
 }
 
-// int	check_map_size(size_t y_max, size_t x_max)
-// {
-// 	if (y_max > 32)
-//	if (x_max > 61)
-// }
+int	check_map_size(size_t y_max, size_t x_max)
+{
+	if (y_max > 33 || x_max > 61)
+	{
+		ft_printf("Error.\nmap too big 🏜️\n");
+		return (1);
+	}
+	return (0);
+}

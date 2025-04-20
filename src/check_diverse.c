@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:54:39 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 20:49:11 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/20 21:02:58 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	full_checker(t_data *data)
 	if (check_map_border(data, data->y_height, data->x_width) == 1)
 		return (1);
 	if (check_items_nbr(data, data->map.matrix) == 1)
+		return (1);
+	if (check_map_size(data->y_height, data->x_width) == 1)
 		return (1);
 	if (check_player_nbr(data->map.matrix, data->y_height, data->x_width) == 1)
 		return (1);
