@@ -1,8 +1,8 @@
-.PHONY: all re clean fclean
 
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -Iincludes/ -I$(LIBFT_DIR)
+MLXFLAGS = -lX11 -lXext -lm -lz
 FILES = main.c \
 		check_diverse.c \
 		check_nbr.c \
@@ -11,34 +11,34 @@ FILES = main.c \
 		map_infos.c \
 		pathfinding.c \
 		moves.c \
-		free_functions.c 
+		free_functions.c \
+		init_map.c \
 
+INC = includes/so_long.h
 SRC = 	src/$(FILES)
-MLX = ./mlx/Makefile.gen
-LFT = ./libft/libft.a
-MLXFLAGS = -lX11 -lXext -lm -lz
-OBJ = $(FILES:%.c=$(OBJDIR)%.o)
 OBJDIR = obj_dir/
-INC = -I ./libft -I ./libft/GNL -I ./mlx -I ./includes
-LIB = ./mlx/libmlx_Linux.a $(MLXFLAGS)
-MINILIBX_PATH = ./mlx
+LIBFT_DIR = libft/
+LIBFT = $(LIBFT_DIR)libft.a
+MLX = mlx/
+OBJ = $(FILES:%.c=$(OBJDIR)%.o)
+# INC = -I ./libft -I ./libft/GNL -I ./mlx -I ./includes
+# LIB = ./mlx/libmlx_Linux.a $(MLXFLAGS)
+# MINILIBX_PATH = ./mlx
 
-all: $(MLX) $(LFT) $(NAME)
+all: lib $(NAME)
 
-$(NAME): $(OBJ) $(LFT)
-	@$(CC) $(OBJ) -L$(MINILIBX_PATH) -lmlx -lmlx_Linux -I$(MINILIBX_PATH) -lXext -lX11 -lm -lz $(LFT) -o $(NAME)
+lib :
+		$(MAKE) -C $(MLX)
+		$(MAKE) -C $(LIBFT_DIR)
 
-$(MLX):
-	@make -s -C mlx
-
-$(LFT):
-	@make -C ./libft
-
-$(OBJDIR)%.o: src/%.c | $(OBJDIR)
-	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+$(NAME): $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(LIBFT) $(MLX)libmlx.a $(MLXFLAGS)
 
 $(OBJDIR):
-	@mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)%.o: src/%.c $(INC) | $(OBJDIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	@make -s $@ -C ./libft
@@ -49,3 +49,5 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re:	fclean all
+
+.PHONY: all lib clean fclean re

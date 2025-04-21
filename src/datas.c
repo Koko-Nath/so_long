@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:57:24 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/21 15:59:17 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:27:19 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,4 @@ void	init_datas(t_data *data)
 		end_program(data);
 }
 
-char	**init_map(t_data *data)
-{
-	int		fd;
-	size_t	i;
-	char	**map;
 
-	i = 0;
-	map = ft_calloc(sizeof(char *), data->y_height + 1);
-	if (!map)
-	{
-		ft_printf("Error\nError initializing map\n");
-		end_program(data);
-	}
-	fd = open ((const char *) data->map.path, O_RDONLY);
-	while (i != data->y_height - 1)
-	{
-		map[i] = (get_next_line(fd));
-		if (ft_strlen(map[i]) == 1 && map[i][0] == '\n')
-		{
-			ft_printf("Error\n empty line found in map\n");
-			free_map(map);
-			end_program(data);
-		}
-		i++;
-	}
-	close(fd);
-	return (map);
-}
