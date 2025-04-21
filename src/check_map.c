@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:02:57 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 21:03:50 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:21:29 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,15 @@ int	check_one_border(char **map, size_t y, size_t x, t_data *data)
 	{
 		if (map[y][x] != '1')
 		{
-			ft_printf("Error.\ninvalid map border 🌳\n");
+			ft_printf("Error\ninvalid map border 🌳\n");
 			return (1);
 		}
 	}
-	//ft_printf("%d\n", x);
 	if (x == 0 || x == data->x_width - 2)
 	{
 		if (map[y][x] != '1')
 		{
-			ft_printf("Error.\ninvalid map border 🌳\n");
+			ft_printf("Error\ninvalid map border 🌳\n");
 			return (1);
 		}
 	}
@@ -63,14 +62,14 @@ int	check_map_shape(char **map, size_t y_max)
 	{
 		if (ft_strlen(map[y]) != ft_strlen(map[0]))
 		{
-			ft_printf("Error.\ninvalid map shape🔶\n");
+			ft_printf("Error\ninvalid map shape🔶\n");
 			return (1);
 		}
 		y++;
 	}
 	if (ft_strlen(map[y]) != ft_strlen(map[0]) - 1)
 	{
-		ft_printf("Error.\ninvalid map shape 🔶\n");
+		ft_printf("Error\ninvalid map shape 🔶\n");
 		return (1);
 	}
 	return (0);
@@ -80,7 +79,7 @@ int	check_map_size(size_t y_max, size_t x_max)
 {
 	if (y_max > 33 || x_max > 61)
 	{
-		ft_printf("Error.\nmap too big 🏜️\n");
+		ft_printf("Error\nmap too big 🏜️\n");
 		return (1);
 	}
 	return (0);

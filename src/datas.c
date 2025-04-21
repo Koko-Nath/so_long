@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:57:24 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 20:50:49 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:39:53 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	init_sprites(t_data *data)
 		|| !data->sprites.milk.img || !data->sprites.player.img
 		|| !data->sprites.exit.img)
 	{
-		ft_printf("Error.\nProblem initialising images\n");
-		free_images(data);
+		ft_printf("Error\nProblem initialising images\n");
+		//free_images(data);
 		end_program(data);
 	}
 }
@@ -50,7 +50,7 @@ int	get_y_max(t_data *data)
 		count_lines++;
 	}
 	if (count_lines < 3)
-		return (ft_printf("Error.\ninvalid map shape 🔶\n"), 1);
+		return (ft_printf("Error\ninvalid map shape 🔶\n"), 1);
 	data->y_height = count_lines;
 	close(fd);
 	return (0);
@@ -82,7 +82,7 @@ char	**init_map(t_data *data)
 	map = ft_calloc(sizeof(char *), data->y_height + 1);
 	if (!map)
 	{
-		ft_printf("Error.\nError initializing map\n");
+		ft_printf("Error\nError initializing map\n");
 		free_map(map);
 		exit (1);
 	}

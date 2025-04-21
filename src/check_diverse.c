@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 16:54:39 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 21:02:58 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:29:36 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int	check_map_path(char *map_path)
 {
 	int	fd;
 
-	//checker le format .ber et non .txt
 	fd = open ((const char *) map_path, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_printf("Error.\ninvalid map path🗺️\n");
+		ft_printf("Error\ninvalid map path🗺️\n");
 		return (1);
 	}
 	close(fd);
@@ -44,7 +43,7 @@ int	check_char(char **map, size_t y_max, size_t x_max)
 				map[y][x] != 'E' &&
 				map[y][x] != 'P')
 			{
-				ft_printf("Error.\ninvalid character in map 🌧️\n");
+				ft_printf("Error\ninvalid character in map 🌧️\n");
 				return (1);
 			}
 			x++;
@@ -60,9 +59,9 @@ int	full_checker(t_data *data)
 		return (1);
 	if (check_char(data->map.matrix, data->y_height, data->x_width) == 1)
 		return (1);
-	if (check_map_shape(data->map.matrix, data->y_height) == 1)
-		return (1);
 	if (check_map_border(data, data->y_height, data->x_width) == 1)
+		return (1);
+	if (check_map_shape(data->map.matrix, data->y_height) == 1)
 		return (1);
 	if (check_items_nbr(data, data->map.matrix) == 1)
 		return (1);

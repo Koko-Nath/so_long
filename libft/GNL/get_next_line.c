@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 02:36:30 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/02/26 00:15:35 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:11:21 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	ft_get_line(char *buffer, char **line)
 	*line = ft_str_join_lines(*line, buffer, bufsize);
 	if (ft_gnl_strchr(buffer, '\n'))
 	{
-		ft_gnl_strlcpy(buffer, ft_gnl_strchr(buffer, '\n') + 1, BUFFER_SIZE + 1);
+		ft_gnl_strlcpy(buffer, ft_gnl_strchr(buffer, '\n')
+			+ 1, BUFFER_SIZE + 1);
 		return (1);
 	}
 	buffer[0] = '\0';

@@ -6,7 +6,7 @@
 /*   By: ntordjma <ntordjma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:02:50 by ntordjma          #+#    #+#             */
-/*   Updated: 2025/04/20 21:02:05 by ntordjma         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:07:02 by ntordjma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 // --------------------DEFINES--------------------
 
-# define BUSH_PATH "../assets/bush.xpm"
-# define MILK_PATH "../assets/milk.xpm"
-# define FLOOR_PATH "../assets/floor.xpm"
-# define PLAYER_PATH "../assets/player.xpm"
-# define EXIT_PATH "../assets/exit.xpm"
+# define BUSH_PATH "./assets/bush.xpm"
+# define MILK_PATH "./assets/milk.xpm"
+# define FLOOR_PATH "./assets/floor.xpm"
+# define PLAYER_PATH "./assets/player.xpm"
+# define EXIT_PATH "./assets/exit.xpm"
 
 // --------------------INCLUDES--------------------
 
